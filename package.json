@@ -1,0 +1,27 @@
+{
+  "name": "frontendninja",
+  "version": "1.0.0",
+  "description": "Front-End Ninja Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skurt23/FrontEndNinja.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "javascript",
+    "sass",
+    "jquery",
+    "responsive"
+  ],
+  "author": "Alejandro M. Alberto (Skurt23)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skurt23/FrontEndNinja/issues"
+  },
+  "homepage": "https://github.com/skurt23/FrontEndNinja#readme"
+}
