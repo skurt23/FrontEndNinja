@@ -2,6 +2,12 @@
 ### Example user template template
 ### Example user template
 
+#SparREST data
+db
+
+#npm
+node_modules/
+
 # IntelliJ project files
 .idea
 *.iml
