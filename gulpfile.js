@@ -1,6 +1,4 @@
-/**
- * Created by Skurt on 21/7/16.
- */
+// importamos gulp
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var notify = require('gulp-notify');
@@ -8,30 +6,36 @@ var browserSync = require('browser-sync').create();
 var browserify = require('browserify');
 var tap = require('gulp-tap');
 var buffer = require('gulp-buffer');
-var uglify = require('gulp-uglify');
-var pump = require('pump');
 
+// variables de patrones de archivos
 var jsFiles = ["src/js/*.js", "src/js/**/*.js"];
 
-gulp.task("default", ["concat-js", "compile-sass", 'compress'], function(){
-    
+// definimos tarea por defecto
+gulp.task("default", ["concat-js", "compile-sass"], function(){
+
+    // iniciar BrowserSync
     browserSync.init({
-        proxy: "127.0.0.1:8000", 
+        // server: "./", // levanta servidor web en carpeta actual
+        proxy: "127.0.0.1:8000",  // actúa como proxy enviando las peticiones a sparrest
         browser: "google chrome"
     });
-    
-    gulp.watch("src/scss/*.scss", ["compile-scss"]);
-    
+
+    // observa cambios en archivos SASS y ejecuta la tarea de compilación
+    gulp.watch("src/scss/*.scss", ["compile-sass"]);
+
+    // observa cambios en archivos HTML y recargue el navegador
     gulp.watch("*.html").on("change", browserSync.reload);
-    
+
+    // observar cambios en archivos JS para concatenar
     gulp.watch(jsFiles, ["concat-js"]);
 
 });
 
+// definimos la tarea para compilar SASS
 gulp.task("compile-sass", function(){
-    gulp.src("./src/scss/style.scss")
-        .pipe(sass().on('error', sass.logError)) 
-        .pipe(gulp.dest("./dist/css/")) 
+    gulp.src("./src/scss/style.scss") // cargamos le archivo
+        .pipe(sass().on('error', sass.logError)) // compilamos el archivo SASS
+        .pipe(gulp.dest("./dist/css/")) // guardamos el archivo en dist/css
         .pipe(notify({
             title: "SASS",
             message: "Compiled 🤘"
@@ -39,24 +43,17 @@ gulp.task("compile-sass", function(){
         .pipe(browserSync.stream());
 });
 
+// definimos la tarea para concatenar JS
 gulp.task("concat-js", function(){
     gulp.src("src/js/app.js")
-        .pipe(tap(function(file){ 
-            file.contents = browserify(file.path, {debug:true}).bundle();
+        .pipe(tap(function(file){ // tap nos permite ejecutar un código por cada fichero seleccionado en el paso anterior
+            file.contents = browserify(file.path, {debug:true}).bundle(); // pasamos el archivo por browserify para importar los require
         }))
-        .pipe(buffer()) 
-        .pipe(gulp.dest("src/js/concatenated/"))
+        .pipe(buffer()) // convertir cada archivo en un stream
+        .pipe(gulp.dest("dist/js/"))
         .pipe(notify({
             title: "JS",
             message: "Concatenated 🤘"
         }))
         .pipe(browserSync.stream());
-});
-
-gulp.task('compress', function () {
-   pump([
-       gulp.src('src/js/concatenated/app.js'),
-       uglify(),
-       gulp.dest('dist/js/')
-   ])
 });

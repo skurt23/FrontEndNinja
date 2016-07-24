@@ -5816,3 +5816,12 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+.header {
+  display: flex; }
+  .header .title {
+    margin: 10px;
+    text-align: center;
+    font-size: 20px; }
+  .header .search {
+    margin-left: 200px; }

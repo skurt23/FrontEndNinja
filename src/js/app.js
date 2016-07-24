@@ -3,3 +3,5 @@
  */
 
 require('jquery');
+require('./bootstrap/bootstrap');
+require('./bootstrap/bootstrap/dropdown');
