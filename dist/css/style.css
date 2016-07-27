@@ -5817,11 +5817,32 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-.header {
-  display: flex; }
-  .header .title {
-    margin: 10px;
-    text-align: center;
-    font-size: 20px; }
-  .header .search {
-    margin-left: 200px; }
+@media (max-width: 767px) {
+  .navbar-nav .right .separador {
+    visibility: hidden; } }
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar-nav .right {
+    left: 28%;
+    transition: left 1s; }
+    .navbar-nav .right .separador {
+      font-size: 30px;
+      font-weight: bold;
+      color: grey; } }
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .navbar-nav .right {
+    left: 76%;
+    transition: left 1s; }
+    .navbar-nav .right .separador {
+      font-size: 30px;
+      font-weight: bold;
+      color: grey; } }
+
+@media (min-width: 1200px) {
+  .navbar-nav .right {
+    left: 127%; }
+    .navbar-nav .right .separador {
+      font-size: 30px;
+      font-weight: bold;
+      color: grey; } }
