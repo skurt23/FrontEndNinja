@@ -1,4 +1,9 @@
 .navbar-nav{
+  .search{
+    margin: 12px;
+    border-radius:5%;
+    border: 2px solid grey;
+  }
   @media (max-width: $screen-xs-max){
     .right{
       .separador{
@@ -23,7 +28,7 @@
 
   @media (min-width: $screen-md-min) and  (max-width: $screen-md-max){
     .right{
-      left: 76%;
+      left: 68%;
       transition: left 1s;
       .separador{
         font-size: 30px;
@@ -36,7 +41,7 @@
 
   @media (min-width: $screen-lg-min){
     .right{
-      left: 127%;
+      left: 115%;
       .separador{
         font-size: 30px;
         font-weight: bold;
