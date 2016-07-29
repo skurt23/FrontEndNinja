@@ -6,6 +6,5 @@ var $ = require('jquery');
 
 global.jQuery = $;
 require('bootstrap-sass');
-var article = require('./articles');
-
-article.load();
+require('./init');
+require('./article-events');

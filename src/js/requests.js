@@ -37,7 +37,7 @@ module.exports = {
 
     detail: function(article ,successCallback, errorCallback) {
         $.ajax({
-            url: "/api/articles/" + article.id,
+            url: "/api/articles/" + article,
             method: "get",
             success: successCallback,
             error: errorCallback
