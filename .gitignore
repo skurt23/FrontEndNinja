@@ -8,6 +8,10 @@ db
 #npm
 node_modules/
 
+src/js/commentprueba.js
+src/js/comments.json
+
+
 # IntelliJ project files
 .idea
 *.iml
