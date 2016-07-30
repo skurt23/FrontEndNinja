@@ -17,7 +17,7 @@ module.exports = {
                 var video = article.vid || "";
                 var img = article.img || "";
                 if (img == "" && video == ""){
-                    img = 'src/img/placeholder.jpeg';
+                    img = 'src/img/min/placeholder.jpeg';
                     htmlresource = '<img class="placeholder" src="' + img + '">';
                 }else if(img == "" && video !== ""){
                     htmlresource = '<iframe class="video" src="' + video + '"></iframe>';
@@ -26,7 +26,7 @@ module.exports = {
                 }
                 var authorimg = article.authorimg || "";
                 if (authorimg == ""){
-                    authorimg = 'src/img/placeholder.jpeg';
+                    authorimg = 'src/img/min/placeholder.jpeg';
                 }
                 var id = article.id || "";
                 var author = article.author || "";
@@ -76,11 +76,11 @@ module.exports = {
 
             var img = article.img || "";
             if (img == "") {
-                img = 'src/img/placeholder.jpeg';
+                img = 'src/img/min/placeholder.jpeg';
             }
             var authorimg = article.authorimg || "";
             if (authorimg == ""){
-                authorimg = 'src/img/placeholder.jpeg';
+                authorimg = 'src/img/min/placeholder.jpeg';
             }
             var id = article.id || "";
             var author = article.author || "";
