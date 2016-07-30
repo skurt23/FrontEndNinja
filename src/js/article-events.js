@@ -26,10 +26,20 @@ $(".article-list").on("click", ".btn", function(){
 });
 
 $(".article-list").on("click", ".comments", function(){
-    console.log('lo detecta');
+    console.log($('#getID').parent().data('id'));
 
+    var id = $(this).parent().parent().data('id');
     var comments = true;
-    var url = "../../detail.html" + "?comment=" + comments;//CHANGE HERE
+    var url = "../../detail.html" + "?comment=" + comments + "&id=" + id;
+    $(this).attr('href', url);
+
+});
+
+$(".article-list").on("click", ".title", function(){
+    console.log('lo detecta  bien');
+
+    var id = $(this).parent().data('id');
+    var url = "../../detail.html" + "?id=" + id;
     $(this).attr('href', url);
 
 });

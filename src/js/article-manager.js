@@ -49,11 +49,11 @@ module.exports = {
                 html += '<div class="thumbnail">';
                 html += htmlresource;
                 html += '<div class="caption" id="id" data-id="' + id + '"  data-title="' + title + '">';
-                html += '<a href="../../detail.html" class="title">' + title + '</a>';
+                html += '<a class="title">' + title + '</a>';
                 html += '<p class="text">' + text + '</p>';
                 html += '<img class="author-img" src="' + authorimg + '">';
                 html += '<p class="author">' + author + '</p>';
-                html += '<div class="row">';
+                html += '<div class="row" id="getID">';
                 html += '<a class="comments">Comentarios(' + length + ')</a>';
                 html += '<span class="date">' + date + '</span>';
                 html += '</div>';
@@ -69,8 +69,8 @@ module.exports = {
             console.error("ERROR", error);
         });
     },
-    loadDetail: function () {
-        requests.detail(2, function (response) {
+    loadDetail: function (id) {
+        requests.detail(id, function (response) {
             $('detail').html('');
             var article = response;
 

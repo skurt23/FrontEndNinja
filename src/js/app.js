@@ -9,4 +9,3 @@ require('bootstrap-sass');
 require('./init');
 require('./article-events');
 require('./animations');
-//require('./commentprueba');

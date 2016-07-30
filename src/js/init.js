@@ -3,20 +3,18 @@
  */
 var $ = require('jquery');
 var article = require('./article-manager');
-var utils = require('./utils').getUrlVars()['comment'];
+var utils = require('./utils');
+var urlComment = utils.getUrlVars()['comment'];
+var urlID = utils.getUrlVars()['id'];
 
-console.log(typeof utils === 'undefined');
-console.log(window.location.pathname);
-
-if (window.location.pathname === '/detail.html' && typeof utils === 'undefined'){
-    console.log('conseguido');
-    article.loadDetail();
+if (window.location.pathname === '/detail.html' && typeof urlComment === 'undefined'){
+    console.log(urlID)
+    article.loadDetail(urlID);
 }else if (window.location.pathname == '/' || window.location.pathname == '/index.html'){
-    console.log('entra mal');
     article.load();
-}else if (utils){
-    console.log('peor');
-    article.loadDetail();
+}else if (urlComment){
+    console.log(urlID);
+    article.loadDetail(urlID);
     setTimeout(function(){$('#myModal').modal('show');}, 1000);
 }
 
