@@ -3,12 +3,13 @@
  */
 var $ = require('jquery');
 var requests = require('./requests');
+var utils = require('./utils');
 
 module.exports = {
 
     load: function () {
         requests.list(function (response) {
-            $('#row').html(''); // vaciamos la lista
+            $('#row').html('');
             for (var i in response) {
                 var article = response[i];
 
@@ -32,24 +33,12 @@ module.exports = {
                 var title = article.title || "";
                 var text = article.smalltext || "";
                 var date = article.date;
-                var comments = article.comments.split(' , ');
+                var comments = JSON.parse(article.comments);
                 var length = comments.length;
                 var like;
 
-                function isFavorite(articleId) {
 
-
-                    var item = localStorage.getItem(articleId);
-
-
-                    if (item === null) {
-                        return false
-                    } else {
-                        return true
-                    }
-                }
-
-                if (isFavorite(id) === true) {
+                if (utils.isFavorite(id) === true) {
                     like = '<button type="button" id="like" class="btn btn-danger">No me gusta</button>'
                 } else {
                     like = '<button type="button" id="like" class="btn btn-primary">Me gusta</button>'
@@ -65,7 +54,7 @@ module.exports = {
                 html += '<img class="author-img" src="' + authorimg + '">';
                 html += '<p class="author">' + author + '</p>';
                 html += '<div class="row">';
-                html += '<a href="../../detail.html" class="comments">Comentarios(' + length + ')</a>';
+                html += '<a class="comments">Comentarios(' + length + ')</a>';
                 html += '<span class="date">' + date + '</span>';
                 html += '</div>';
                 html += like;
@@ -81,7 +70,7 @@ module.exports = {
         });
     },
     loadDetail: function () {
-        requests.detail(5, function (response) {
+        requests.detail(2, function (response) {
             $('detail').html('');
             var article = response;
 
@@ -98,8 +87,17 @@ module.exports = {
             var title = article.title || "";
             var text = article.text || "";
             var date = article.date;
-            var comments = article.comments.split(' , ');
-            var length = comments.length;
+            var comments = JSON.parse(article.comments);
+            var like;
+
+
+
+            if (utils.isFavorite(id) === true) {
+                like = '<button type="button" id="like" class="btn btn-danger">No me gusta</button>'
+            } else {
+                like = '<button type="button" id="like" class="btn btn-primary">Me gusta</button>'
+            }
+
 
 
             var html = '<article>';
@@ -109,11 +107,11 @@ module.exports = {
             html += '</div>';
             html += '<div class="col-sm-6 col-md-6">';
             html += '<div class="thumbnail">';
-            html += '<div class="caption">';
+            html += '<div class="caption" data-id="' + id + '" data-title="' + title + '">';
             html += '<img src="' + authorimg + '" alt="..." class="detail-author-img">';
             html += '<h4 class="detail-author">' + author + '</h4>';
             html += '<p class="detail-date">Fecha de publicación:' + date + '</p>';
-            html += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Comentarios(' + length + ')</button>';
+            html += '<button type="button" id="commentsButton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Comentarios(' + comments.length + ')</button>';
             html += '<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
             html += '<div class="modal-dialog" role="document">';
             html += '<div class="modal-content">';
@@ -121,7 +119,7 @@ module.exports = {
             html += '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
             html += '<h4 class="modal-title" id="myModalLabel">Comentarios</h4>';
             html += '<hr>';
-            html += '<form class="form-horizontal">';
+            html += '<form class="form-horizontal" id="form">';
             html += '<div class="form-group">';
             html += '<label for="inputNombre" class="col-sm-2 control-label">Nombre</label>';
             html += '<div class="col-sm-10">';
@@ -129,9 +127,9 @@ module.exports = {
             html += '</div>';
             html += '</div>';
             html += '<div class="form-group">';
-            html += '<label for="inputApellidos" class="col-sm-2 control-label">Apellidos</label>';
+            html += '<label for="inputEmail" class="col-sm-2 control-label">E-mail</label>';
             html += '<div class="col-sm-10">';
-            html += '<input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos">';
+            html += '<input type="email" class="form-control" id="inputEmail" placeholder="E-mail">';
             html += '</div>';
             html += '</div>';
             html += '<div class="form-group">';
@@ -141,17 +139,17 @@ module.exports = {
             html += '</div>';
             html += '</div>';
             html += '<button type="submit" class="btn btn-primary inputComment">Enviar</button>';
+            html += '</form>';
             html += '</div>';
             html += '<div class="modal-body" id="comments">';
             html += '</div>';
             html += '<div class="modal-footer">';
-            html += '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
-            html += '<button type="button" class="btn btn-primary">Save changes</button>';
+            html += '<button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>';
             html += '</div>';
             html += '</div>';
             html += '</div>';
             html += '</div>';
-            html += '<button class="btn btn-primary like">Me gusta</button>';
+            html += like;
             html += '</div>';
             html += '</div>';
             html += '</div>';
@@ -171,12 +169,18 @@ module.exports = {
             $('.detail').append(html);
 
             for (i in comments){
-                var comment = JSON.stringify(comments[i]);
-                var parsed = JSON.parse(comment);
-                console.log(parsed.name);
+                var comment = comments[i];
+                var name = comment.name || "";
+                var lastname = comment.lastname || "";
+                var largetext = comment.text || "";
+                var email = comment.email || "";
 
-                var htmll = '<h4>' + parsed.name + ' ' + parsed.lastname +'</h4>';
-                htmll += '<p>' + parsed.text + '</p>';
+
+
+                var htmll = '<h4>' + name + ' ' + lastname +'</h4>';
+                html += '<h6>' + email + '</h6>';
+                htmll += '<p>' + largetext + '</p>';
+                htmll += '<hr>';
                 $('.modal-body').append(htmll);
             }
         }, function (error) {

@@ -20,15 +20,15 @@
     margin-top: 20px;
   }
 
-  .like{
-    margin-left: 20px;
+  #like{
+   float: right;
   }
 
   .inputComment{
     float: right;
   }
 
-  @media (max-width: $screen-xs-max) {
+  @media (max-width: $screen-sm-max) {
     .img-thumbnail{
       height: 200px;
     }
@@ -37,7 +37,7 @@
       height: 50px;
     }
 
-    .like{
+    #like{
       float: right;
       margin-left: 0px;
     }
