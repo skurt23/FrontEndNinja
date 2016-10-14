@@ -4,6 +4,7 @@
 var $ = require('jquery');
 var requests = require('./requests');
 var utils = require('./utils');
+var momment = require('moment');
 
 module.exports = {
 
@@ -37,6 +38,7 @@ module.exports = {
                 var length = comments.length;
                 var like;
 
+                var formatDate;
 
                 if (utils.isFavorite(id) === true) {
                     like = '<button type="button" id="like" class="btn btn-danger">No me gusta</button>'
@@ -55,7 +57,7 @@ module.exports = {
                 html += '<p class="author">' + author + '</p>';
                 html += '<div class="row" id="getID">';
                 html += '<a class="comments">Comentarios(' + length + ')</a>';
-                html += '<span class="date">' + date + '</span>';
+                html += '<time class="date" datetime="' + date + '">' + date + '</time>';
                 html += '</div>';
                 html += like;
                 html += '</div>';
