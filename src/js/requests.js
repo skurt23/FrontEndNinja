@@ -51,6 +51,16 @@ module.exports = {
             success: succesCallback,
             error: errorCallback
         });
+    },
+
+    createComment: function (object, succesCallback, errorCallback) {
+        $.ajax({
+            url: "/api/comments/",
+            method: "post",
+            data: object,
+            success: succesCallback,
+            error: errorCallback
+        });
     }
 
 };

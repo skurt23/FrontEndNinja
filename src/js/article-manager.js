@@ -121,7 +121,7 @@ module.exports = {
             html += '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
             html += '<h4 class="modal-title" id="myModalLabel">Comentarios</h4>';
             html += '<hr>';
-            html += '<form class="form-horizontal" id="form">';
+            html += '<form class="form-horizontal" id="form" data-id="' + id + '">';
             html += '<div class="form-group">';
             html += '<label for="inputNombre" class="col-sm-2 control-label">Nombre</label>';
             html += '<div class="col-sm-10">';
@@ -192,9 +192,6 @@ module.exports = {
 
 
             });
-            for (i in comments) {
-                var comment = comments[i];
-            }
         }, function (error) {
             console.log('Error', error);
         })
