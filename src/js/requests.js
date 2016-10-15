@@ -42,6 +42,15 @@ module.exports = {
             success: successCallback,
             error: errorCallback
         });
+    },
+
+    listComments: function (succesCallback, errorCallback) {
+        $.ajax({
+            url: "/api/comments/",
+            method: "get",
+            success: succesCallback,
+            error: errorCallback
+        });
     }
 
 };

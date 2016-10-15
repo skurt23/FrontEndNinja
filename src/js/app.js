@@ -10,3 +10,4 @@ require('./init');
 require('./article-events');
 require('./animations');
 require('./dynamicDate');
+//require('./commentprueba');

@@ -170,20 +170,30 @@ module.exports = {
 
             $('.detail').append(html);
 
-            for (i in comments){
+
+            requests.listComments(function (response) {
+
+                for (var i in response){
+                    var comment = response[i];
+                    if (comment.articleid === id) {
+                        var name = comment.name || "";
+                        var lastname = comment.lastname || "";
+                        var largetext = comment.text || "";
+                        var email = comment.email || "";
+
+
+                        var htmll = '<h4>' + name + ' ' + lastname + '</h4>';
+                        html += '<h6>' + email + '</h6>';
+                        htmll += '<p>' + largetext + '</p>';
+                        htmll += '<hr>';
+                        $('.modal-body').append(htmll);
+                    }
+                }
+
+
+            });
+            for (i in comments) {
                 var comment = comments[i];
-                var name = comment.name || "";
-                var lastname = comment.lastname || "";
-                var largetext = comment.text || "";
-                var email = comment.email || "";
-
-
-
-                var htmll = '<h4>' + name + ' ' + lastname +'</h4>';
-                html += '<h6>' + email + '</h6>';
-                htmll += '<p>' + largetext + '</p>';
-                htmll += '<hr>';
-                $('.modal-body').append(htmll);
             }
         }, function (error) {
             console.log('Error', error);
